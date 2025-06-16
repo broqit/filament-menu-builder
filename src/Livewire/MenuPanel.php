@@ -9,8 +9,8 @@ use Datlechin\FilamentMenuBuilder\Models\Menu;
 use Filament\Forms\Components;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -100,13 +100,13 @@ class MenuPanel extends Component implements HasForms
             ->send();
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
         $items = collect($this->getItems())->mapWithKeys(fn ($item) => [$item['linkable_id'] ?? $item['title'] => $item['title']]);
 
-        return $form
+        return $schema
             ->schema([
-                Components\View::make('filament-tables::components.empty-state.index')
+                \Filament\Schemas\Components\View::make('filament-tables::components.empty-state.index')
                     ->viewData([
                         'heading' => __('filament-menu-builder::menu-builder.panel.empty.heading'),
                         'description' => __('filament-menu-builder::menu-builder.panel.empty.description'),

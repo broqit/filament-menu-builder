@@ -136,7 +136,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->icon('heroicon-o-arrow-right')
             ->color('gray')
             ->iconButton()
-            ->size(ActionSize::Small)
+            ->size('sm')
             ->action(fn (array $arguments) => $this->indent($arguments['id']))
             ->visible(
                 fn (array $arguments): bool => FilamentMenuBuilderPlugin::get()->isIndentActionsEnabled() &&
@@ -151,7 +151,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->icon('heroicon-o-arrow-left')
             ->color('gray')
             ->iconButton()
-            ->size(ActionSize::Small)
+            ->size('sm')
             ->action(fn (array $arguments) => $this->unindent($arguments['id']))
             ->visible(
                 fn (array $arguments): bool => FilamentMenuBuilderPlugin::get()->isIndentActionsEnabled() &&
@@ -189,7 +189,7 @@ class MenuItems extends Component implements HasActions, HasForms
         return Action::make('edit')
             ->label(__('filament-actions::edit.single.label'))
             ->iconButton()
-            ->size(ActionSize::Small)
+            ->size('sm')
             ->modalHeading(fn (array $arguments): string => __('filament-actions::edit.single.modal.heading', ['label' => $arguments['title']]))
             ->icon('heroicon-m-pencil-square')
             ->fillForm(fn (array $arguments): array => $this->getMenuItemService()->findByIdWithRelations($arguments['id'])->toArray())
@@ -207,7 +207,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->groupedIcon(FilamentIcon::resolve('actions::delete-action.grouped') ?? 'heroicon-m-trash')
             ->icon('heroicon-s-trash')
             ->iconButton()
-            ->size(ActionSize::Small)
+            ->size('sm')
             ->requiresConfirmation()
             ->modalHeading(fn (array $arguments): string => __('filament-actions::delete.single.modal.heading', ['label' => $arguments['title']]))
             ->modalSubmitActionLabel(__('filament-actions::delete.single.modal.actions.delete.label'))
@@ -244,7 +244,7 @@ class MenuItems extends Component implements HasActions, HasForms
                 ->label(__('filament-menu-builder::menu-builder.open_in.label'))
                 ->options(LinkTarget::class)
                 ->default(LinkTarget::Self),
-            Group::make()
+            \Filament\Schemas\Components\Group::make()
                 ->visible(fn (FormComponent $component) => $component->evaluate(FilamentMenuBuilderPlugin::get()->getMenuItemFields()) !== [])
                 ->schema(FilamentMenuBuilderPlugin::get()->getMenuItemFields()),
         ];

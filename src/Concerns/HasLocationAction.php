@@ -74,7 +74,7 @@ trait HasLocationAction
                             ->options($this->getMenus()->pluck('name', 'id')->all()),
                     ]),
             )->all() ?: [
-                Components\View::make('filament-tables::components.empty-state.index')
+                \Filament\Schemas\Components\View::make('filament-tables::components.empty-state.index')
                     ->viewData([
                         'heading' => __('filament-menu-builder::menu-builder.actions.locations.empty.heading'),
                         'icon' => 'heroicon-o-x-mark',

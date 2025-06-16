@@ -7,26 +7,26 @@ namespace Datlechin\FilamentMenuBuilder\Resources\MenuResource\Pages;
 use Datlechin\FilamentMenuBuilder\Concerns\HasLocationAction;
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
 use Filament\Actions;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Form;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Resources\Pages\EditRecord;
 
 class EditMenu extends EditRecord
 {
     use HasLocationAction;
 
-    protected static string $view = 'filament-menu-builder::edit-record';
+    protected string $view = 'filament-menu-builder::edit-record';
 
     public static function getResource(): string
     {
         return FilamentMenuBuilderPlugin::get()->getResource();
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
-                Section::make()->schema($form->getComponents()),
+                Section::make()->schema($schema->getComponents()),
             ]);
     }
 

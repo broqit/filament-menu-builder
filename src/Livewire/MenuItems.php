@@ -19,8 +19,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Get;
-use Filament\Support\Enums\ActionSize;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -57,7 +55,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->iconButton()
             ->extraAttributes(['data-sortable-handle' => true, 'class' => 'cursor-move'])
             ->livewireClickHandlerEnabled(false)
-            ->size(ActionSize::Small);
+            ->size('sm');
     }
 
     public function indent(int $itemId): void
@@ -197,7 +195,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->fillForm(fn (array $arguments): array => $this->getMenuItemService()->findByIdWithRelations($arguments['id'])->toArray())
             ->form($this->getEditFormSchema())
             ->action(fn (array $data, array $arguments) => $this->getMenuItemService()->update($arguments['id'], $data))
-            ->modalWidth(MaxWidth::Medium)
+            ->modalWidth('md')
             ->slideOver();
     }
 

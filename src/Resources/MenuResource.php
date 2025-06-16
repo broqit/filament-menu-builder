@@ -6,7 +6,7 @@ namespace Datlechin\FilamentMenuBuilder\Resources;
 
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
 use Filament\Forms\Components;
-use Filament\Forms\Components\Component;
+use Filament\Schemas\Components\Component;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -50,7 +50,7 @@ class MenuResource extends Resource
         return $schema
             ->columns(1)
             ->schema([
-                Components\Grid::make(4)
+                \Filament\Schemas\Components\Grid::make(4)
                     ->schema([
                         Components\TextInput::make('name')
                             ->label(__('filament-menu-builder::menu-builder.resource.name.label'))
@@ -72,7 +72,7 @@ class MenuResource extends Resource
                             ->default(true),
                     ]),
 
-                Components\Group::make()
+                \Filament\Schemas\Components\Group::make()
                     ->visible(fn (Component $component) => $component->evaluate(FilamentMenuBuilderPlugin::get()->getMenuFields()) !== [])
                     ->schema(FilamentMenuBuilderPlugin::get()->getMenuFields()),
             ]);

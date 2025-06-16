@@ -8,7 +8,6 @@ use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
 use Filament\Actions\Action;
 use Filament\Forms\Components;
 use Filament\Notifications\Notification;
-use Filament\Support\Enums\MaxWidth;
 use Illuminate\Support\Collection;
 
 trait HasLocationAction
@@ -24,7 +23,7 @@ trait HasLocationAction
             ->modalHeading(__('filament-menu-builder::menu-builder.actions.locations.heading'))
             ->modalDescription(__('filament-menu-builder::menu-builder.actions.locations.description'))
             ->modalSubmitActionLabel(__('filament-menu-builder::menu-builder.actions.locations.submit'))
-            ->modalWidth(MaxWidth::Large)
+            ->modalWidth('lg')
             ->modalSubmitAction($this->getRegisteredLocations()->isEmpty() ? false : null)
             ->color('gray')
             ->fillForm(fn () => $this->getRegisteredLocations()->map(fn ($location, $key) => [
@@ -60,7 +59,7 @@ trait HasLocationAction
                     ->send();
             })
             ->form($this->getRegisteredLocations()->map(
-                fn ($location, $key) => Components\Grid::make(2)
+                fn ($location, $key) => \Filament\Schemas\Components\Grid::make(2)
                     ->statePath($key)
                     ->schema([
                         Components\TextInput::make('location')

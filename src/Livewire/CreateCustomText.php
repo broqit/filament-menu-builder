@@ -10,6 +10,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -43,9 +44,9 @@ class CreateCustomText extends Component implements HasForms
         $this->dispatch('menu:created');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 TextInput::make('title')
                     ->label(__('filament-menu-builder::menu-builder.form.title'))

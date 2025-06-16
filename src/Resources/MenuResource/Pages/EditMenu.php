@@ -6,6 +6,7 @@ namespace Datlechin\FilamentMenuBuilder\Resources\MenuResource\Pages;
 
 use Datlechin\FilamentMenuBuilder\Concerns\HasLocationAction;
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
+use Datlechin\FilamentMenuBuilder\Resources\MenuResource;
 use Filament\Actions;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;

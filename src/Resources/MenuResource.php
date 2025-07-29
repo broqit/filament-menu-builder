@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Datlechin\FilamentMenuBuilder\Resources;
 
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components;
 use Filament\Schemas\Components\Component;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -49,8 +53,8 @@ class MenuResource extends Resource
     {
         return $schema
             ->columns(1)
-            ->schema([
-                \Filament\Schemas\Components\Grid::make(4)
+            ->components([
+                Grid::make(4)
                     ->schema([
                         Components\TextInput::make('name')
                             ->label(__('filament-menu-builder::menu-builder.resource.name.label'))
@@ -108,12 +112,12 @@ class MenuResource extends Resource
                     ->sortable()
                     ->boolean(),
             ])
-            ->actions([
-                \Filament\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

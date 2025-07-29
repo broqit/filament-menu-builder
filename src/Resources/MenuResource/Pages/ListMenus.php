@@ -6,7 +6,7 @@ namespace Datlechin\FilamentMenuBuilder\Resources\MenuResource\Pages;
 
 use Datlechin\FilamentMenuBuilder\Concerns\HasLocationAction;
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListMenus extends ListRecords
@@ -21,7 +21,7 @@ class ListMenus extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
             $this->getLocationAction(),
         ];
     }

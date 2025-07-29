@@ -4,12 +4,12 @@
     'fi-resource-record-' . $record->getKey(),
 ])>
     @capture($form)
-        <x-filament-schemas::form id="form" :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
+        <x-filament-panels::form id="form" :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
             wire:submit="save">
             {{ $this->form }}
 
-            <x-filament-schemas::actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
-        </x-filament-schemas::form>
+            <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
+        </x-filament-panels::form>
     @endcapture
 
     @php
@@ -22,7 +22,7 @@
     @endif
 
     @if (count($relationManagers))
-        <div class="fi-resource-relation-manager" :active-locale="isset($activeLocale) ? $activeLocale : null" :active-manager="$this->activeRelationManager ??
+        <x-filament-panels::resources.relation-managers :active-locale="isset($activeLocale) ? $activeLocale : null" :active-manager="$this->activeRelationManager ??
             ($hasCombinedRelationManagerTabsWithContent ? null : array_key_first($relationManagers))" :content-tab-label="$this->getContentTabLabel()"
             :content-tab-icon="$this->getContentTabIcon()" :content-tab-position="$this->getContentTabPosition()" :managers="$relationManagers" :owner-record="$record" :page-class="static::class">
             @if ($hasCombinedRelationManagerTabsWithContent)
@@ -30,12 +30,11 @@
                     {{ $form() }}
                 </x-slot>
             @endif
-            <x-filament-panels::unsaved-action-changes-alert />
-        </div>
+        </x-filament-panels::resources.relation-managers>
     @endif
 
-    <x-filament::section aside="true">
-        <x-slot name="heading">
+    <div class="grid grid-cols-12 gap-4" wire:ignore>
+        <div class="flex flex-col col-span-12 gap-4 sm:col-span-4">
             @foreach (\Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin::get()->getMenuPanels() as $menuPanel)
                 <livewire:menu-builder-panel :menu="$record" :menuPanel="$menuPanel" />
             @endforeach
@@ -47,10 +46,13 @@
             @if (\Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin::get()->isShowCustomTextPanel())
                 <livewire:create-custom-text :menu="$record" />
             @endif
-        </x-slot>
+        </div>
+        <div class="col-span-12 sm:col-span-8">
+            <x-filament::section>
+                <livewire:menu-builder-items :menu="$record" />
+            </x-filament::section>
+        </div>
+    </div>
 
-        <livewire:menu-builder-items :menu="$record" />
-    </x-filament::section>
-
-    <x-filament-panels::unsaved-action-changes-alert />
+    <x-filament-panels::page.unsaved-data-changes-alert />
 </x-filament-panels::page>

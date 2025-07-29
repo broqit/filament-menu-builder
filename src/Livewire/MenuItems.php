@@ -11,15 +11,16 @@ use Datlechin\FilamentMenuBuilder\Models\Menu;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\Component as FormComponent;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Placeholder;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Component as FormComponent;
+use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Enums\Size;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
@@ -136,7 +137,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->icon('heroicon-o-arrow-right')
             ->color('gray')
             ->iconButton()
-            ->size('sm')
+            ->size(Size::Small)
             ->action(fn (array $arguments) => $this->indent($arguments['id']))
             ->visible(
                 fn (array $arguments): bool => FilamentMenuBuilderPlugin::get()->isIndentActionsEnabled() &&
@@ -151,7 +152,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->icon('heroicon-o-arrow-left')
             ->color('gray')
             ->iconButton()
-            ->size('sm')
+            ->size(Size::Small)
             ->action(fn (array $arguments) => $this->unindent($arguments['id']))
             ->visible(
                 fn (array $arguments): bool => FilamentMenuBuilderPlugin::get()->isIndentActionsEnabled() &&
@@ -189,7 +190,7 @@ class MenuItems extends Component implements HasActions, HasForms
         return Action::make('edit')
             ->label(__('filament-actions::edit.single.label'))
             ->iconButton()
-            ->size('sm')
+            ->size(Size::Small)
             ->modalHeading(fn (array $arguments): string => __('filament-actions::edit.single.modal.heading', ['label' => $arguments['title']]))
             ->icon('heroicon-m-pencil-square')
             ->fillForm(fn (array $arguments): array => $this->getMenuItemService()->findByIdWithRelations($arguments['id'])->toArray())
@@ -207,7 +208,7 @@ class MenuItems extends Component implements HasActions, HasForms
             ->groupedIcon(FilamentIcon::resolve('actions::delete-action.grouped') ?? 'heroicon-m-trash')
             ->icon('heroicon-s-trash')
             ->iconButton()
-            ->size('sm')
+            ->size(Size::Small)
             ->requiresConfirmation()
             ->modalHeading(fn (array $arguments): string => __('filament-actions::delete.single.modal.heading', ['label' => $arguments['title']]))
             ->modalSubmitActionLabel(__('filament-actions::delete.single.modal.actions.delete.label'))
@@ -232,19 +233,19 @@ class MenuItems extends Component implements HasActions, HasForms
                 ->hidden(fn (?string $state, Get $get): bool => blank($state) || filled($get('linkable_type')))
                 ->label(__('filament-menu-builder::menu-builder.form.url'))
                 ->required(),
-            Placeholder::make('linkable_type')
+            TextEntry::make('linkable_type')
                 ->label(__('filament-menu-builder::menu-builder.form.linkable_type'))
                 ->hidden(fn (?string $state): bool => blank($state))
-                ->content(fn (string $state) => $state),
-            Placeholder::make('linkable_id')
+                ->state(fn (string $state) => $state),
+            TextEntry::make('linkable_id')
                 ->label(__('filament-menu-builder::menu-builder.form.linkable_id'))
                 ->hidden(fn (?string $state): bool => blank($state))
-                ->content(fn (string $state) => $state),
+                ->state(fn (string $state) => $state),
             Select::make('target')
                 ->label(__('filament-menu-builder::menu-builder.open_in.label'))
                 ->options(LinkTarget::class)
                 ->default(LinkTarget::Self),
-            \Filament\Schemas\Components\Group::make()
+            Group::make()
                 ->visible(fn (FormComponent $component) => $component->evaluate(FilamentMenuBuilderPlugin::get()->getMenuItemFields()) !== [])
                 ->schema(FilamentMenuBuilderPlugin::get()->getMenuItemFields()),
         ];

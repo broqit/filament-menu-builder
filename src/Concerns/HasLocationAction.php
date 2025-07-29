@@ -8,6 +8,7 @@ use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
 use Filament\Actions\Action;
 use Filament\Forms\Components;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Components\View;
 use Illuminate\Support\Collection;
 
 trait HasLocationAction
@@ -58,7 +59,7 @@ trait HasLocationAction
                     ->success()
                     ->send();
             })
-            ->form($this->getRegisteredLocations()->map(
+            ->schema($this->getRegisteredLocations()->map(
                 fn ($location, $key) => \Filament\Schemas\Components\Grid::make(2)
                     ->statePath($key)
                     ->schema([
@@ -74,7 +75,7 @@ trait HasLocationAction
                             ->options($this->getMenus()->pluck('name', 'id')->all()),
                     ]),
             )->all() ?: [
-                \Filament\Schemas\Components\View::make('filament-tables::components.empty-state.index')
+                View::make('filament-tables::components.empty-state.index')
                     ->viewData([
                         'heading' => __('filament-menu-builder::menu-builder.actions.locations.empty.heading'),
                         'icon' => 'heroicon-o-x-mark',

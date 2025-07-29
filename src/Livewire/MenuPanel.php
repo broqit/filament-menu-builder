@@ -9,8 +9,8 @@ use Datlechin\FilamentMenuBuilder\Models\Menu;
 use Filament\Forms\Components;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Schema;
+use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -77,7 +77,7 @@ class MenuPanel extends Component implements HasForms
         $order = $this->menu->menuItems->max('order') ?? 0;
 
         $selectedItems = collect($this->items)
-            ->filter(fn ($item) => in_array($item['linkable_id'] ?? $item['title'], $this->data))
+            ->filter(fn ($item) => in_array($item['linkable_id'] ?? $item['title'], $this->data, true))
             ->map(function ($item) use (&$order) {
                 return [
                     ...$item,
@@ -105,7 +105,7 @@ class MenuPanel extends Component implements HasForms
         $items = collect($this->getItems())->mapWithKeys(fn ($item) => [$item['linkable_id'] ?? $item['title'] => $item['title']]);
 
         return $schema
-            ->schema([
+            ->components([
                 \Filament\Schemas\Components\View::make('filament-tables::components.empty-state.index')
                     ->viewData([
                         'heading' => __('filament-menu-builder::menu-builder.panel.empty.heading'),

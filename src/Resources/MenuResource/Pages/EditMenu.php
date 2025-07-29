@@ -6,8 +6,7 @@ namespace Datlechin\FilamentMenuBuilder\Resources\MenuResource\Pages;
 
 use Datlechin\FilamentMenuBuilder\Concerns\HasLocationAction;
 use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
-use Datlechin\FilamentMenuBuilder\Resources\MenuResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Resources\Pages\EditRecord;
@@ -26,7 +25,7 @@ class EditMenu extends EditRecord
     public function form(Schema $schema): Schema
     {
         return $schema
-            ->schema([
+            ->components([
                 Section::make()->schema($schema->getComponents()),
             ]);
     }
@@ -34,7 +33,7 @@ class EditMenu extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
             $this->getLocationAction(),
         ];
     }

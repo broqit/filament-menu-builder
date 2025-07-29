@@ -8,9 +8,8 @@ use Datlechin\FilamentMenuBuilder\Models\Menu;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Schema;
+use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -47,7 +46,7 @@ class CreateCustomText extends Component implements HasForms
     public function form(Schema $schema): Schema
     {
         return $schema
-            ->schema([
+            ->components([
                 TextInput::make('title')
                     ->label(__('filament-menu-builder::menu-builder.form.title'))
                     ->required(),

@@ -4,12 +4,12 @@
     'fi-resource-record-' . $record->getKey(),
 ])>
     @capture($form)
-        <x-filament-panels::form id="form" :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
-            wire:submit="save">
-            {{ $this->form }}
+    <x-filament-schemas::form id="form" :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
+                              wire:submit="save">
+        {{ $this->form }}
 
-            <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
-        </x-filament-panels::form>
+        <x-filament-schemas::actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
+    </x-filament-schemas::form>
     @endcapture
 
     @php
@@ -22,15 +22,15 @@
     @endif
 
     @if (count($relationManagers))
-        <x-filament-panels::resources.relation-managers :active-locale="isset($activeLocale) ? $activeLocale : null" :active-manager="$this->activeRelationManager ??
+        <x-filament-menu-builder::relation-managers :active-locale="isset($activeLocale) ? $activeLocale : null" :active-manager="$this->activeRelationManager ??
             ($hasCombinedRelationManagerTabsWithContent ? null : array_key_first($relationManagers))" :content-tab-label="$this->getContentTabLabel()"
-            :content-tab-icon="$this->getContentTabIcon()" :content-tab-position="$this->getContentTabPosition()" :managers="$relationManagers" :owner-record="$record" :page-class="static::class">
+                                                    :content-tab-icon="$this->getContentTabIcon()" :content-tab-position="$this->getContentTabPosition()" :managers="$relationManagers" :owner-record="$record" :page-class="static::class">
             @if ($hasCombinedRelationManagerTabsWithContent)
                 <x-slot name="content">
                     {{ $form() }}
                 </x-slot>
             @endif
-        </x-filament-panels::resources.relation-managers>
+        </x-filament-menu-builder::relation-managers>
     @endif
 
     <div class="grid grid-cols-12 gap-4" wire:ignore>
@@ -54,5 +54,5 @@
         </div>
     </div>
 
-    <x-filament-panels::page.unsaved-data-changes-alert />
+    <x-filament-panels::unsaved-action-changes-alert />
 </x-filament-panels::page>

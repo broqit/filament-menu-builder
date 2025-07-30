@@ -13,7 +13,7 @@
             @endforeach
         </ul>
     @else
-        <x-filament-tables::empty-state
+        <x-filament-schemas::actions
             icon="heroicon-o-document"
             :heading="trans('filament-menu-builder::menu-builder.items.empty.heading')"
         />

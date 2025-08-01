@@ -3,7 +3,7 @@
     $record = $this->record;
 @endphp
 
-<div class="fi-sc fi-sc-has-gap fi-grid lg:fi-grid-cols" style="--cols-lg: repeat(3, minmax(0, 1fr)); --cols-default: repeat(1, minmax(0, 1fr));" wire:ignore>
+<div class="fi-sc fi-sc-has-gap fi-grid lg:fi-grid-cols" style="margin-bottom: 30px; --cols-lg: repeat(3, minmax(0, 1fr)); --cols-default: repeat(1, minmax(0, 1fr));" wire:ignore>
     <div class="fi-grid fi-grid-col fi-sc-has-gap lg:fi-grid-col-span" style="gap:20px;--col-span-default: span 1 / span 1; --col-span-lg: span 1 / span 1;">
         @foreach ($plugin->getMenuPanels() as $menuPanel)
             <livewire:menu-builder-panel :menu="$record" :menuPanel="$menuPanel" />

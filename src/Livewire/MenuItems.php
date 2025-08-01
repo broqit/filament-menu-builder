@@ -233,14 +233,14 @@ class MenuItems extends Component implements HasActions, HasForms
                 ->hidden(fn (?string $state, Get $get): bool => blank($state) || filled($get('linkable_type')))
                 ->label(__('filament-menu-builder::menu-builder.form.url'))
                 ->required(),
-            TextEntry::make('linkable_type')
-                ->label(__('filament-menu-builder::menu-builder.form.linkable_type'))
-                ->hidden(fn (?string $state): bool => blank($state))
-                ->state(fn (string $state) => $state),
-            TextEntry::make('linkable_id')
+            TextEntry::make('linkable_type_display')
+                ->label('Тип')
+                ->state(fn (Get $get) => $get('linkable_type'))
+                ->visible(fn (Get $get) => filled($get('linkable_type'))),
+            TextEntry::make('linkable_id_display')
                 ->label(__('filament-menu-builder::menu-builder.form.linkable_id'))
-                ->hidden(fn (?string $state): bool => blank($state))
-                ->state(fn (string $state) => $state),
+                ->hidden(fn (Get $get) => !filled($get('linkable_id')))
+                ->state(fn (Get $get) => $get('linkable_id')),
             Select::make('target')
                 ->label(__('filament-menu-builder::menu-builder.open_in.label'))
                 ->options(LinkTarget::class)

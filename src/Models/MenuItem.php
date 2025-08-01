@@ -53,7 +53,7 @@ class MenuItem extends Model
 
     protected static function booted(): void
     {
-        static::deleted(function (self $menuItem) {
+        static::deleted(static function (self $menuItem) {
             $menuItem->children->each->delete();
         });
     }

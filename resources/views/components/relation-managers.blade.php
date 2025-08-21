@@ -1,3 +1,4 @@
+@php use Filament\Resources\Pages\Enums\ContentTabPosition; @endphp
 @props([
     'activeLocale' => null,
     'activeManager',
@@ -29,7 +30,7 @@
 
                 if ($content) {
                     match ($contentTabPosition) {
-                        \Filament\Resources\Pages\ContentTabPosition::After => $tabs = array_merge($tabs, [null => null]),
+                        ContentTabPosition::After => $tabs = array_merge($tabs, [null => null]),
                         default => $tabs = array_replace([null => null], $tabs),
                     };
                 }

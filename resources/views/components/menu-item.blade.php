@@ -37,11 +37,10 @@
             </div>
 
             <div class="fi-section-header-heading">
-                {{ $item->title }}
-            </div>
-
-            <div class="hidden overflow-hidden text-sm text-gray-500 sm:block dark:text-gray-400 whitespace-nowrap text-ellipsis">
-                {{ $item->url }}
+                <div>{{ $item->title }}</div>
+                <div class="hidden overflow-hidden text-sm text-gray-500 sm:block dark:text-gray-400 whitespace-nowrap text-ellipsis">
+                    {{ $item->url }}
+                </div>
             </div>
         </div>
         <div class="fi-ta-actions">
